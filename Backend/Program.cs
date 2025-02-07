@@ -10,12 +10,10 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
-// Enable CORS for React app
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
@@ -27,10 +25,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add controllers
 builder.Services.AddControllers();
 
-//Add Swagger for API documentation (optional, but useful for testing)
  builder.Services.AddSwaggerGen(c =>
  {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Task Management API", Version = "v1" });
@@ -38,7 +34,6 @@ builder.Services.AddControllers();
 
  var app = builder.Build();
 
- // Configure the HTTP request pipeline.
  if (app.Environment.IsDevelopment())
  {
      app.UseSwagger();
@@ -49,16 +44,15 @@ builder.Services.AddControllers();
      });
  }
 
- // Use CORS middleware
  app.UseCors("AllowReactApp");
 
- app.UseRouting(); // Make sure this is called before UseAuthorization and MapControllers
+ app.UseRouting(); 
 
  app.UseAuthorization();
 
  app.MapControllers();
 
- // Set the listening port
+ // listening port
  app.Urls.Add("http://localhost:5194");
 
  app.Run();

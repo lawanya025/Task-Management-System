@@ -35,7 +35,7 @@ const Dashboard = () => {
     priority: "",
     search: "",
   });
-  const [editingTask, setEditingTask] = useState<Tasks | null>(null); // Track the task being edited
+  const [editingTask, setEditingTask] = useState<Tasks | null>(null); 
 
   // Fetch tasks from backend
   useEffect(() => {
@@ -57,7 +57,7 @@ const Dashboard = () => {
   }, []);
 
   const handleDeleteTasks = async (e: React.FormEvent, task: Tasks) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
 
     try {
       const response = await fetch("http://localhost:5194/api/tasks", {
@@ -72,9 +72,9 @@ const Dashboard = () => {
 
       if (response.ok) {
         console.log("Task deleted successfully");
-        setTasks((prevTasks) => prevTasks.filter((t) => t.id !== task.id)); // Remove task from state
+        setTasks((prevTasks) => prevTasks.filter((t) => t.id !== task.id)); 
       } else {
-        const errorText = await response.text(); // Get backend response message
+        const errorText = await response.text(); 
         console.error("Failed to delete task:", response.status, errorText);
       }
     } catch (error) {
@@ -83,7 +83,7 @@ const Dashboard = () => {
   };
 
   const handleUpdateTasks = async (e: React.FormEvent, task: Tasks) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
 
     if (!editingTask) return;
 
@@ -91,16 +91,14 @@ const Dashboard = () => {
       const response = await fetch(
         `http://localhost:5194/api/tasks/${editingTask.id}`,
         {
-          // Make sure to include the task ID in the URL
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            id: editingTask.id, // Include the task ID
+            id: editingTask.id, 
             status: editingTask.status,
             priority: editingTask.priority,
-            // You can add any other fields here if needed (e.g., name, description, dueDate)
           }),
         }
       );
@@ -115,9 +113,9 @@ const Dashboard = () => {
           )
         );
 
-        setEditingTask(null); // Clear editing state after saving
+        setEditingTask(null); 
       } else {
-        const errorText = await response.text(); // Get the backend response message
+        const errorText = await response.text(); 
         console.error("Failed to update task:", errorText);
       }
     } catch (error) {
@@ -149,7 +147,7 @@ const Dashboard = () => {
   }));
 
   const handleEdit = (task: Tasks) => {
-    setEditingTask(task); // Set the task to be edited
+    setEditingTask(task); 
   };
 
   return (

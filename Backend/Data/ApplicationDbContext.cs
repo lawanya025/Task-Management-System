@@ -10,6 +10,6 @@ namespace TaskManagementBackend.Data
         {
         }
 
-        public DbSet<Tasks> Tasks { get; set; } // This is the DbSet for TaskItem
+        public DbSet<Tasks> Tasks { get; set; } 
     }
 }

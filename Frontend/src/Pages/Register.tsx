@@ -7,11 +7,9 @@ const Register: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  // Registration submit handler
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation (you can add more)
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -19,7 +17,6 @@ const Register: React.FC = () => {
 
     // Here you would typically send the data to the server
     // After successful registration, navigate to the Login page
-    // For now, we're simulating that the registration is successful
     localStorage.setItem("user", JSON.stringify({ email, password }));
 
     // Redirect to login page after successful registration

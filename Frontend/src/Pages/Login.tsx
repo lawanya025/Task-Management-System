@@ -6,11 +6,9 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // Login submit handler
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Retrieve user email and password from localStorage
     const user = JSON.parse(localStorage.getItem("user") || "{}");
 
     // Check if the entered email and password match

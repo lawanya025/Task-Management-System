@@ -19,7 +19,7 @@ interface Tasks {
   status: "Completed" | "In Progress" | "Due";
 }
 
-const COLORS = ["#4CAF50", "#FF9800", "#F44336"]; // Colors for Completed, In Progress, Due
+const COLORS = ["#4CAF50", "#FF9800", "#F44336"]; 
 
 // Initial tasks (Hardcoded)
 const initialTasks: Tasks[] = [
@@ -32,7 +32,7 @@ const TaskList = () => {
     priority: "",
     search: "",
   });
-  const [editingTask, setEditingTask] = useState<Tasks | null>(null); // Track the task being edited
+  const [editingTask, setEditingTask] = useState<Tasks | null>(null); 
   const navigate = useNavigate();
 
   // Fetch tasks from backend
@@ -55,7 +55,7 @@ const TaskList = () => {
   }, []);
 
   const handleDeleteTasks = async (e: React.FormEvent, task: Tasks) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
 
     try {
       const response = await fetch("http://localhost:5194/api/tasks", {
@@ -64,15 +64,15 @@ const TaskList = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: task.id, // Sending the task id to be deleted
+          id: task.id, 
         }),
       });
 
       if (response.ok) {
         console.log("Task deleted successfully");
-        setTasks((prevTasks) => prevTasks.filter((t) => t.id !== task.id)); // Remove task from state
+        setTasks((prevTasks) => prevTasks.filter((t) => t.id !== task.id)); 
       } else {
-        const errorText = await response.text(); // Get backend response message
+        const errorText = await response.text(); 
         console.error("Failed to delete task:", response.status, errorText);
       }
     } catch (error) {
@@ -81,7 +81,7 @@ const TaskList = () => {
   };
 
   const handleUpdateTasks = async (e: React.FormEvent, task: Tasks) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
 
     if (!editingTask) return;
 
@@ -89,16 +89,14 @@ const TaskList = () => {
       const response = await fetch(
         `http://localhost:5194/api/tasks/${editingTask.id}`,
         {
-          // Make sure to include the task ID in the URL
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            id: editingTask.id, // Include the task ID
+            id: editingTask.id, 
             status: editingTask.status,
             priority: editingTask.priority,
-            // You can add any other fields here if needed (e.g., name, description, dueDate)
           }),
         }
       );
@@ -113,9 +111,9 @@ const TaskList = () => {
           )
         );
 
-        setEditingTask(null); // Clear editing state after saving
+        setEditingTask(null); 
       } else {
-        const errorText = await response.text(); // Get the backend response message
+        const errorText = await response.text(); 
         console.error("Failed to update task:", errorText);
       }
     } catch (error) {
@@ -147,7 +145,7 @@ const TaskList = () => {
   }));
 
   const handleEdit = (task: Tasks) => {
-    setEditingTask(task); // Set the task to be edited
+    setEditingTask(task); 
   };
 
   return (
