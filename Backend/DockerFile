@@ -1,0 +1,27 @@
+### Build Stage
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files and restore dependencies
+COPY *.csproj ./
+RUN dotnet restore
+
+# Copy the rest of the application and build it
+COPY . ./
+RUN dotnet publish -c Release -o /out
+
+### Runtime Stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+
+# Set working directory
+WORKDIR /app
+
+# Copy the built app from the previous stage
+COPY --from=build /out .
+# Expose the application port
+EXPOSE 5194
+
+# Run the application
+CMD ["dotnet", "TaskManagementBackend.dll"]
