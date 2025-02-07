@@ -1,0 +1,25 @@
+#homePageContainer{
+  margin-top: 18%;
+}
+
+.login-actions{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 12rem;
+  margin: 0 auto;
+}
+
+#authContainer{
+  width: 40rem;
+  margin-top: 12%;
+}
+
+#authFormContainer{
+  width: 25rem;
+
+}
+
+.add-task-container{
+  margin-top: 6rem !important;
+}
